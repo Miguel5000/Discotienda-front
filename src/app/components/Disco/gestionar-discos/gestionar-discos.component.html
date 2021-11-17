@@ -12,11 +12,13 @@
               <div class="u-layout-col">
                 <div class="u-align-left u-container-style u-layout-cell u-left-cell u-size-40 u-layout-cell-1">
                   <div class="u-container-layout u-valign-top u-container-layout-1">
-                    <h2 class="u-text u-text-default u-text-1">Artista</h2>
+                    <h2 class="u-text u-text-default u-text-1">{{artistaInterfaz.nombre}}</h2>
                   </div>
                 </div>
-                <div class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1" src="" data-image-width="1080" data-image-height="1080">
-                  <div class="u-container-layout u-container-layout-2"></div>
+                <div style="background-image: url({{artistaInterfaz.foto}});" class="u-container-style u-image u-layout-cell u-left-cell u-size-20 u-image-1" src="" data-image-width="1080" data-image-height="1080">
+                  
+                   
+                  
                 </div>
               </div>
             </div>
@@ -26,15 +28,15 @@
                   <div class="u-container-layout u-container-layout-3">
                     <h4 class="u-align-center u-text u-text-default u-text-2">
                       <span style="font-weight: 700;">Fecha de nacimiento:</span>
-                      <br>dd/mm/aa<br>
+                      <br>{{artistaInterfaz.fecha}}<br>
                       <br>
                       <br>
                       <span style="font-weight: 700;">Género:</span>
-                      <br>Masculino<br>
+                      <br>{{artistaInterfaz.genero}}<br>
                       <br>
                       <br>
                       <span style="font-weight: 700;">País:</span>
-                      <br>Colombia
+                      <br>{{artistaInterfaz.pais}}
                     </h4>
                   </div>
                 </div>
@@ -50,7 +52,7 @@
       <div class="u-align-center u-container-style u-group u-group-1">
         <div class="u-container-layout">
           <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
-            <input style="border-radius: 20px; width: 100%" type="text">
+            <input (input)="filtrar($event)" style="border-radius: 20px; width: 100%" type="text">
           </div>
         </div>
       </div><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-9db6"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-9db6"><path d="m256 0c-141.164062 0-256 114.835938-256 256s114.835938 256 256 256 256-114.835938 256-256-114.835938-256-256-256zm0 0" fill="#2196f3"></path><path d="m368 277.332031h-90.667969v90.667969c0 11.777344-9.554687 21.332031-21.332031 21.332031s-21.332031-9.554687-21.332031-21.332031v-90.667969h-90.667969c-11.777344 0-21.332031-9.554687-21.332031-21.332031s9.554687-21.332031 21.332031-21.332031h90.667969v-90.667969c0-11.777344 9.554687-21.332031 21.332031-21.332031s21.332031 9.554687 21.332031 21.332031v90.667969h90.667969c11.777344 0 21.332031 9.554687 21.332031 21.332031s-9.554687 21.332031-21.332031 21.332031zm0 0" fill="#fafafa"></path></svg></span>
@@ -60,13 +62,15 @@
     <div class="u-clearfix u-sheet u-sheet-1"><!--products--><!--products_options_json--><!--{"type":"Recent","source":"","tags":"","count":""}--><!--/products_options_json-->
       <div class="u-expanded-width u-pagination-center u-products u-products-1">
         <div class="u-repeater u-repeater-1"><!--product_item-->
-          <div class="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-1">
+
+
+          <div *ngFor="let discoInterfaz of discosInterfazFiltrados" class="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-1">
             <div class="u-container-layout u-similar-container u-container-layout-1"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="assets/images/2.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-1">Disco 1</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-2">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-3">dd/mm/aa</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-4">Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
+              <img (click)="gestionarCanciones(discoInterfaz.id)" alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{{discoInterfaz.portada}}"><!--/product_image-->
+              <p class="u-align-center u-small-text u-text u-text-variant u-text-1">{{discoInterfaz.nombre}}</p>
+              <p class="u-align-center u-small-text u-text u-text-variant u-text-2">${{discoInterfaz.precio}}</p>
+              <p class="u-align-center u-small-text u-text u-text-variant u-text-3">{{discoInterfaz.fecha}}</p>
+              <p class="u-align-center u-small-text u-text u-text-variant u-text-4">{{discoInterfaz.descripcion}}</p>
               <div class="u-align-center u-container-style u-group u-group-1">
                 <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-8441"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-8441"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-2"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-8133"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-8133"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
 </g></svg></span>
@@ -74,104 +78,8 @@
               </div>
             </div>
           </div><!--/product_item--><!--product_item-->
-          <div class="u-align-center u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-2">
-            <div class="u-container-layout u-similar-container u-container-layout-3"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-2" src="assets/images/3.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-5">Disco 2</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-6">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-7">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-8"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-2">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-c374"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-c374"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-4"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-5973"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-5973"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-3">
-            <div class="u-container-layout u-similar-container u-container-layout-5"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-3" src="assets/images/4.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-9">Disco 3</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-10">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-11">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-12"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-3">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-5"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-43cb"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-43cb"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-6"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-66df"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-66df"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-align-center u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-4">
-            <div class="u-container-layout u-similar-container u-container-layout-7"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-4" src="assets/images/2.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-13">Disco 4</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-14">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-15">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-16"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-4">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-7"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-73ef"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-73ef"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-8"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-a654"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-a654"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-5">
-            <div class="u-container-layout u-similar-container u-container-layout-9"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-5" src="assets/images/5.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-17">Disco 5</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-18">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-19">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-20"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-5">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-9"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-4cbc"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-4cbc"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-10"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-fea0"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-fea0"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-align-center u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-6">
-            <div class="u-container-layout u-similar-container u-container-layout-11"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-6" src="assets/images/6.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-21">Disco 6</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-22">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-23">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-24"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-6">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-11"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e2d3"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-e2d3"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-12"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3191"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-3191"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-align-center u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-7">
-            <div class="u-container-layout u-similar-container u-container-layout-13"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-7" src="assets/images/2.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-25">Disco 7</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-26">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-27">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-28"> Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-7">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-13"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-dc3b"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-dc3b"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-14"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-6fc7"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-6fc7"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item--><!--product_item-->
-          <div class="u-align-center u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-8">
-            <div class="u-container-layout u-similar-container u-container-layout-15"><!--product_image-->
-              <img alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-8" src="assets/images/4.svg"><!--/product_image-->
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-29">Disco 8</p>
-              <p class="u-align-center u-large-text u-text u-text-variant u-text-30">$5000</p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-31">dd/mm/aa </p>
-              <p class="u-align-center u-small-text u-text u-text-variant u-text-32">Esta es la descripción del disco, necesito hacer relleno para que sea larga.</p>
-              <div class="u-align-center u-container-style u-group u-group-8">
-                <div class="u-container-layout"><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-15"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 492.49284 492" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-d315"></use></svg><svg class="u-svg-content" viewBox="0 0 492.49284 492" id="svg-d315"><path d="m304.140625 82.472656-270.976563 270.996094c-1.363281 1.367188-2.347656 3.09375-2.816406 4.949219l-30.035156 120.554687c-.898438 3.628906.167969 7.488282 2.816406 10.136719 2.003906 2.003906 4.734375 3.113281 7.527344 3.113281.855469 0 1.730469-.105468 2.582031-.320312l120.554688-30.039063c1.878906-.46875 3.585937-1.449219 4.949219-2.8125l271-270.976562zm0 0"></path><path d="m476.875 45.523438-30.164062-30.164063c-20.160157-20.160156-55.296876-20.140625-75.433594 0l-36.949219 36.949219 105.597656 105.597656 36.949219-36.949219c10.070312-10.066406 15.617188-23.464843 15.617188-37.714843s-5.546876-27.648438-15.617188-37.71875zm0 0"></path></svg></span><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-16"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3015"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" id="svg-3015"><g><path d="m424 64h-88v-16c0-26.51-21.49-48-48-48h-64c-26.51 0-48 21.49-48 48v16h-88c-22.091 0-40 17.909-40 40v32c0 8.837 7.163 16 16 16h384c8.837 0 16-7.163 16-16v-32c0-22.091-17.909-40-40-40zm-216-16c0-8.82 7.18-16 16-16h64c8.82 0 16 7.18 16 16v16h-96z"></path><path d="m78.364 184c-2.855 0-5.13 2.386-4.994 5.238l13.2 277.042c1.22 25.64 22.28 45.72 47.94 45.72h242.98c25.66 0 46.72-20.08 47.94-45.72l13.2-277.042c.136-2.852-2.139-5.238-4.994-5.238zm241.636 40c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16zm-80 0c0-8.84 7.16-16 16-16s16 7.16 16 16v208c0 8.84-7.16 16-16 16s-16-7.16-16-16z"></path>
-</g></svg></span>
-                </div>
-              </div>
-            </div>
-          </div><!--/product_item-->
+         
+         
         </div>
         <div class="u-list-control"><!--products_pagination--><!--products_pagination_options_json--><!--{"ul":"style=\"\" class=\"responsive-style1 u-pagination u-unstyled\"","li":"style=\"\" class=\"u-nav-item u-pagination-item\"","link":"style=\"padding: 16px 28px;\" class=\"u-button-style u-nav-link\""}--><!--/products_pagination_options_json-->
           <ul class="responsive-style1 u-pagination u-unstyled">

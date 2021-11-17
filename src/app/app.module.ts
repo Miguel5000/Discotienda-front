@@ -19,6 +19,11 @@ import { HistorialComponent } from './components/Compra/historial/historial.comp
 import { CarritoComponent } from './components/Compra/carrito/carrito.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ValidacionComponent } from './components/Utilitarios/validacion/validacion.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -38,12 +43,17 @@ import { HttpClientModule} from '@angular/common/http';
     GestionarDiscosComponent,
     PagoComponent,
     HistorialComponent,
-    CarritoComponent
+    CarritoComponent,
+    ValidacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

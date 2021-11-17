@@ -24,6 +24,12 @@ export class DiscoService {
 
   }
 
+  obtenerPorArtista(id: number){
+
+    return this.http.get<DiscoDto[]>(this.URL + "/obtenerPorArtista/" + id);
+
+  }
+
   crear(disco: DiscoDto){
 
     return this.http.post(this.URL + "/crear", disco);

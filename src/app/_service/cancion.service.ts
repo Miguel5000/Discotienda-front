@@ -44,13 +44,13 @@ export class CancionService {
 
   obtenerListaPorCompra(id: number){
 
-    return this.http.get<CancionDto>(this.URL + "/obtenerListaPorCompra/" + id);
+    return this.http.get<CancionDto[]>(this.URL + "/obtenerListaPorCompra/" + id);
 
   }
 
   obtenerListaPorDisco(id: number){
 
-    return this.http.get<CancionDto>(this.URL + "/obtenerListaPorDisco/" + id);
+    return this.http.get<CancionDto[]>(this.URL + "/obtenerListaPorDisco/" + id);
 
   }
   

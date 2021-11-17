@@ -38,8 +38,6 @@
     .u-section-2 .u-group-1 {
       width: 340px;
     }
-  }.u-section-3 .u-sheet-1 {
-    min-height: 1328px;
   }
   
   .u-section-3 .u-products-1 {
@@ -50,7 +48,6 @@
   .u-section-3 .u-repeater-1 {
     grid-template-columns: calc(25% - 22.5px) calc(25% - 22.5px) calc(25% - 22.5px) calc(25% - 22.5px);
     grid-gap: 30px 30px;
-    min-height: 1171px;
   }
   
   .u-section-3 .u-repeater-item-1 {
@@ -434,9 +431,7 @@
       width: 940px;
     }
   
-    .u-section-3 .u-repeater-1 {
-      min-height: 966px;
-    }
+   
   
     .u-section-3 .u-image-1 {
       height: 236px;
@@ -630,8 +625,9 @@
   
     .u-section-3 .u-repeater-1 {
       grid-template-columns: calc(50% - 15px) calc(50% - 15px);
-      min-height: 2960px;
     }
+
+    
   
     .u-section-3 .u-image-1 {
       height: 341px;

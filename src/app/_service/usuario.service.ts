@@ -42,6 +42,12 @@ export class UsuarioService {
 
   }
 
+  iniciarSesion(correo: string, clave: string){
+
+    return this.http.get<UsuarioDto>(this.URL + "/iniciarSesion/" + correo + "/" + clave);
+
+  }
+
   enviarCorreoRecuperacion(correo: string){
 
     return this.http.put(this.URL + "/enviarCorreoRecuperacion/" + correo, null);

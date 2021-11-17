@@ -8,6 +8,8 @@ export class ArtistaDto{
     id: number;
     idLugar: number;
     idGrupo: number;
+    nombres: string;
+    apellidos: string;
     nombreArtistico: string;
     fechaDeNacimiento: string;
     foto: string;
