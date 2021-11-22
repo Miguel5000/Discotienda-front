@@ -32,7 +32,7 @@ export class DiscoService {
 
   crear(disco: DiscoDto){
 
-    return this.http.post(this.URL + "/crear", disco);
+    return this.http.post<DiscoDto>(this.URL + "/crear", disco);
 
   }
 

@@ -21,30 +21,7 @@ export class GestionarArtistasComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.artistaService.obtenerTodos().subscribe(artistas => {
-
-      artistas.forEach(artista => {
-
-        let artistaInterfaz = new ArtistaInterfaz();
-        artistaInterfaz.id = artista.id;
-        artistaInterfaz.nombre = artista.nombres + " " + artista.apellidos;
-        artistaInterfaz.genero = artista.genero.nombre;
-        artistaInterfaz.fecha = artista.fechaDeNacimiento;
-        artistaInterfaz.pais = artista.pais.nombre;
-        artistaInterfaz.foto = artista.foto;
-
-        if (artistaInterfaz.foto == null || artistaInterfaz.foto == "") {
-
-          artistaInterfaz.foto = "assets/imagenes/ArtistaNulo.png";
-
-        }
-
-        this.artistasInterfaz.push(artistaInterfaz);
-        this.artistasInterfazFiltrados.push(artistaInterfaz);
-
-      });
-
-    });
+    this.actualizar();
 
   }
 
@@ -60,6 +37,63 @@ export class GestionarArtistasComponent implements OnInit {
     let valor = elemento.value.toLowerCase();
     this.artistasInterfazFiltrados = this.artistasInterfaz.filter(artista => artista.nombre.toLowerCase().includes(valor) ||
     artista.fecha.toLowerCase().includes(valor) || artista.genero.toLowerCase().includes(valor) || artista.pais.toLowerCase().includes(valor));
+
+  }
+
+  crear(){
+
+    this.router.navigate(["/agregarArtistas"]);
+
+  }
+
+  editar(artistaInterfaz: ArtistaInterfaz){
+
+    this.router.navigate(["/editarArtista", artistaInterfaz.id]);
+
+  }
+
+  eliminar(artistaInterfaz: ArtistaInterfaz){
+
+    this.artistaService.eliminar(artistaInterfaz.id).subscribe(
+      data => {
+        this.actualizar();
+      }
+    );
+
+  }
+
+  actualizar(){
+
+    this.artistasInterfaz = [];
+    this.artistasInterfazFiltrados = [];
+
+    this.artistaService.obtenerTodos().subscribe(artistas => {
+
+      artistas.forEach(artista => {
+
+        let artistaInterfaz = new ArtistaInterfaz();
+        artistaInterfaz.id = artista.id;
+        artistaInterfaz.nombre = artista.nombres + " " + artista.apellidos;
+        artistaInterfaz.genero = artista.genero.nombre;
+        artistaInterfaz.fecha = artista.fechaDeNacimiento;
+        artistaInterfaz.pais = artista.pais.nombre;
+
+        if(artista.foto != undefined){
+          artistaInterfaz.foto = artista.foto;
+        }
+
+        if (artistaInterfaz.foto == null || artistaInterfaz.foto == "") {
+
+          artistaInterfaz.foto = "assets/imagenes/ArtistaNulo.png";
+
+        }
+
+        this.artistasInterfaz.push(artistaInterfaz);
+        this.artistasInterfazFiltrados.push(artistaInterfaz);
+
+      });
+
+    });
 
   }
 

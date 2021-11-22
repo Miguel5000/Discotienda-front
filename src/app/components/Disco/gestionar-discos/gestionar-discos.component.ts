@@ -13,6 +13,7 @@ export class GestionarDiscosComponent implements OnInit {
   artistaInterfaz: ArtistaInterfaz = new ArtistaInterfaz();
   discosInterfaz: DiscoInterfaz[] = [];
   discosInterfazFiltrados: DiscoInterfaz[] = [];
+  idArtista: number;
 
   constructor(private route: ActivatedRoute,
     private artistaService: ArtistaService,
@@ -25,6 +26,8 @@ export class GestionarDiscosComponent implements OnInit {
       
       let id: number = params['id'];
 
+      this.idArtista = id;
+
       this.artistaService.obtenerPorId(id).subscribe(artista => {
 
         this.artistaInterfaz = new ArtistaInterfaz();
@@ -32,7 +35,10 @@ export class GestionarDiscosComponent implements OnInit {
         this.artistaInterfaz.genero = artista.genero.nombre;
         this.artistaInterfaz.pais = artista.pais.nombre;
         this.artistaInterfaz.fecha = new Date(artista.fechaDeNacimiento).toLocaleString().split(",")[0];
-        this.artistaInterfaz.foto = artista.foto;
+        
+        if(artista.foto != undefined){
+          this.artistaInterfaz.foto = artista.foto;
+        }
 
         if (this.artistaInterfaz.foto == null || this.artistaInterfaz.foto == "") {
 
@@ -83,6 +89,12 @@ export class GestionarDiscosComponent implements OnInit {
     let valor = elemento.value.toLowerCase();
     this.discosInterfazFiltrados = this.discosInterfaz.filter(disco => disco.nombre.toLowerCase().includes(valor) ||
     disco.fecha.toLowerCase().includes(valor) || disco.precio.toString().toLowerCase().includes(valor) || disco.descripcion.toLowerCase().includes(valor));
+
+  }
+
+  agregar(){
+
+    this.router.navigate(["/agregarDiscos", this.idArtista]);
 
   }
 

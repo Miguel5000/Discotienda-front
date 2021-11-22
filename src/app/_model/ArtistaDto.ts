@@ -12,7 +12,7 @@ export class ArtistaDto{
     apellidos: string;
     nombreArtistico: string;
     fechaDeNacimiento: string;
-    foto: string;
+    foto?: string;
     fotoEnBytes: Byte[];
     creaciones: CreadorDiscoDto[];
     genero: GeneroDto;
