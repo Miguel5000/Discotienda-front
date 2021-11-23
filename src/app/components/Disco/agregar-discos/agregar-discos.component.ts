@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreadorDiscoDto } from 'src/app/_model/CreadorDiscoDto';
 import { DiscoDto } from 'src/app/_model/DiscoDto';
 import { ArtistaService } from 'src/app/_service/artista.service';
@@ -19,21 +19,54 @@ export class AgregarDiscosComponent implements OnInit {
   archivo?: Uint8Array;
   agregarDiscoForm: FormGroup;
   idArtista: number;
+  idDisco: number;
+  isEditando: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private discoService: DiscoService,
     private snackBar: MatSnackBar,
     private creadorDiscoService: CreadorDiscoService,
-    private artistaService: ArtistaService) { }
+    private artistaService: ArtistaService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
-    this.route.params.subscribe(params => {
+    if (this.router.url.includes("editarDisco")) {
 
-      this.idArtista = params['id'];
-      this.agregarDiscoForm = this.createFormGroup();
+      this.isEditando = true;
+      this.route.params.subscribe(params => {
 
-    });
+        this.idDisco = params['id'];
+        this.agregarDiscoForm = this.createFormGroup();
+
+        this.discoService.obtenerPorId(this.idDisco).subscribe(disco => {
+
+          this.agregarDiscoForm.controls.nombre.setValue(disco.nombre);
+          console.log(disco.fechaDeLanzamiento);
+          this.agregarDiscoForm.controls.fechaLanzamiento.setValue(disco.fechaDeLanzamiento);
+          this.agregarDiscoForm.controls.precio.setValue(disco.precio);
+          this.agregarDiscoForm.controls.descripcion.setValue(disco.descripcion);
+
+          let elemento = document.getElementById("imagenCargada") as HTMLImageElement;
+
+          if (disco.portada != undefined) {
+            elemento.src = disco.portada;
+          } else {
+            elemento.src = "assets/imagenes/DiscoNulo.png";
+          }
+
+        })
+
+      });
+
+    } else {
+      this.route.params.subscribe(params => {
+
+        this.idArtista = params['id'];
+        this.agregarDiscoForm = this.createFormGroup();
+
+      });
+    }
 
   }
 
@@ -162,6 +195,56 @@ export class AgregarDiscosComponent implements OnInit {
           })
 
         })
+
+      })
+
+    } else {
+
+      let mensajeError = this.getMensajeError();
+
+      this.snackBar.openFromComponent(ValidacionComponent, {
+        data: mensajeError,
+        duration: 3000
+      });
+
+    }
+
+  }
+
+  editar() {
+
+    if (this.agregarDiscoForm.valid) {
+
+      this.discoService.obtenerPorId(this.idDisco).subscribe(disco => {
+
+        disco.nombre = this.agregarDiscoForm.controls.nombre.value;
+        disco.fechaDeLanzamiento = this.agregarDiscoForm.controls.fechaLanzamiento.value;
+        disco.precio = this.agregarDiscoForm.controls.precio.value;
+        disco.descripcion = this.agregarDiscoForm.controls.descripcion.value;
+        disco.portada = undefined;
+
+        if (this.archivo != undefined) {
+
+          disco.portadaEnBytes = [];
+
+          this.archivo.forEach(byte => {
+            disco.portadaEnBytes.push(byte);
+          });
+
+        }
+
+        this.discoService.editar(disco).subscribe(data => {
+
+          this.snackBar.open("Disco editado con éxito", "cerrar", { duration: 3000 });
+          let idArtistaSession = sessionStorage.getItem("idArtista");
+          if(idArtistaSession != null){
+            let idArtista: number = parseInt(idArtistaSession);
+            sessionStorage.removeItem("idArtista");
+            this.router.navigate(["/gestionarDiscos", idArtista]);
+          }
+
+        })
+
 
       })
 

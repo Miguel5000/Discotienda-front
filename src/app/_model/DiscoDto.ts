@@ -13,7 +13,7 @@ export class DiscoDto{
     compras: CompraDiscoDto[];
     creaciones: CreadorDiscoDto[];
     canciones: CancionDto[];
-    portada: string;
+    portada?: string;
     portadaEnBytes: Byte[];
 
 }

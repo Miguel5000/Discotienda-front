@@ -24,6 +24,12 @@ export class CreadorDiscoService {
 
   }
 
+  obtenerPorCreadorYDisco(idArtista: number, idDisco: number){
+
+    return this.http.get<CreadorDiscoDto>(this.URL + "/obtenerPorCreadorYDisco/" + idArtista + "/" + idDisco);
+
+  }
+
   crear(creacionDisco: CreadorDiscoDto){
 
     return this.http.post(this.URL + "/crear", creacionDisco);

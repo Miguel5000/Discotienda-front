@@ -33,6 +33,7 @@ const routes: Routes = [
   {path: 'agregarCanciones', component: AgregarCancionesComponent},
   {path: 'gestionarCanciones/:id', component: GestionarCancionesComponent},
   {path: 'agregarDiscos/:id', component: AgregarDiscosComponent},
+  {path: 'editarDisco/:id', component: AgregarDiscosComponent},
   {path: 'gestionarDiscos/:id', component: GestionarDiscosComponent},
   {path: 'carrito', component: CarritoComponent},
   {path: 'historialArtistas', component: HistorialComponent},

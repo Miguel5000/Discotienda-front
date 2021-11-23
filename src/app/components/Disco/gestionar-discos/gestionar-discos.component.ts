@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistaService } from 'src/app/_service/artista.service';
+import { CreadorDiscoService } from 'src/app/_service/creador-disco.service';
 import { DiscoService } from 'src/app/_service/disco.service';
 
 @Component({
@@ -18,57 +19,69 @@ export class GestionarDiscosComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private artistaService: ArtistaService,
     private discoService: DiscoService,
+    private creadorDiscoService: CreadorDiscoService,
     private router: Router) { }
 
   ngOnInit(): void {
 
     this.route.params.subscribe(params => {
-      
-      let id: number = params['id'];
 
-      this.idArtista = id;
+      this.idArtista = params['id'];
 
-      this.artistaService.obtenerPorId(id).subscribe(artista => {
+      this.actualizar();
 
-        this.artistaInterfaz = new ArtistaInterfaz();
-        this.artistaInterfaz.nombre = artista.nombres + " " + artista.apellidos;
-        this.artistaInterfaz.genero = artista.genero.nombre;
-        this.artistaInterfaz.pais = artista.pais.nombre;
-        this.artistaInterfaz.fecha = new Date(artista.fechaDeNacimiento).toLocaleString().split(",")[0];
-        
-        if(artista.foto != undefined){
-          this.artistaInterfaz.foto = artista.foto;
-        }
+    });
 
-        if (this.artistaInterfaz.foto == null || this.artistaInterfaz.foto == "") {
+  }
 
-          this.artistaInterfaz.foto = "assets/imagenes/ArtistaNulo.png";
+  actualizar() {
 
-        }
+    this.discosInterfaz = [];
+    this.discosInterfazFiltrados = [];
 
-        this.discoService.obtenerPorArtista(id).subscribe(discos => {
+    this.artistaService.obtenerPorId(this.idArtista).subscribe(artista => {
 
-          discos.forEach(disco => {
-            
-            let discoInterfaz: DiscoInterfaz = new DiscoInterfaz();
-            discoInterfaz.id = disco.id;
-            discoInterfaz.descripcion = disco.descripcion;
-            discoInterfaz.fecha = new Date(disco.fechaDeLanzamiento).toLocaleString().split(",")[0];
-            discoInterfaz.nombre = disco.nombre;
+      this.artistaInterfaz = new ArtistaInterfaz();
+      this.artistaInterfaz.nombre = artista.nombres + " " + artista.apellidos;
+      this.artistaInterfaz.genero = artista.genero.nombre;
+      this.artistaInterfaz.pais = artista.pais.nombre;
+      this.artistaInterfaz.fecha = new Date(artista.fechaDeNacimiento).toLocaleString().split(",")[0];
+
+      if (artista.foto != undefined) {
+        this.artistaInterfaz.foto = artista.foto;
+      }
+
+      if (this.artistaInterfaz.foto == null || this.artistaInterfaz.foto == "") {
+
+        this.artistaInterfaz.foto = "assets/imagenes/ArtistaNulo.png";
+
+      }
+
+      this.discoService.obtenerPorArtista(this.idArtista).subscribe(discos => {
+
+        discos.forEach(disco => {
+
+          let discoInterfaz: DiscoInterfaz = new DiscoInterfaz();
+          discoInterfaz.id = disco.id;
+          discoInterfaz.descripcion = disco.descripcion;
+          let fechaConvertida:Date = new Date(disco.fechaDeLanzamiento);
+          fechaConvertida.setDate(fechaConvertida.getDate()+1);
+          discoInterfaz.fecha = new Date(fechaConvertida).toLocaleString().split(",")[0];
+          discoInterfaz.nombre = disco.nombre;
+          if(disco.portada != undefined){
             discoInterfaz.portada = disco.portada
-            discoInterfaz.precio = disco.precio;
+          }
+          discoInterfaz.precio = disco.precio;
 
-            if (discoInterfaz.portada == null || discoInterfaz.portada == "") {
+          if (discoInterfaz.portada == null || discoInterfaz.portada == "") {
 
-              discoInterfaz.portada = "assets/imagenes/DiscoNulo.png";
-    
-            }
+            discoInterfaz.portada = "assets/imagenes/DiscoNulo.png";
 
-            this.discosInterfaz.push(discoInterfaz);
-            this.discosInterfazFiltrados.push(discoInterfaz);
+          }
 
-          });
-  
+          this.discosInterfaz.push(discoInterfaz);
+          this.discosInterfazFiltrados.push(discoInterfaz);
+
         });
 
       });
@@ -83,24 +96,49 @@ export class GestionarDiscosComponent implements OnInit {
 
   }
 
-  filtrar(event: Event){
+  filtrar(event: Event) {
 
-    let elemento:HTMLInputElement = event.target as HTMLInputElement;
+    let elemento: HTMLInputElement = event.target as HTMLInputElement;
     let valor = elemento.value.toLowerCase();
     this.discosInterfazFiltrados = this.discosInterfaz.filter(disco => disco.nombre.toLowerCase().includes(valor) ||
-    disco.fecha.toLowerCase().includes(valor) || disco.precio.toString().toLowerCase().includes(valor) || disco.descripcion.toLowerCase().includes(valor));
+      disco.fecha.toLowerCase().includes(valor) || disco.precio.toString().toLowerCase().includes(valor) || disco.descripcion.toLowerCase().includes(valor));
 
   }
 
-  agregar(){
+  agregar() {
 
     this.router.navigate(["/agregarDiscos", this.idArtista]);
 
   }
 
+  editar(discoInterfaz: DiscoInterfaz){
+
+    sessionStorage.setItem("idArtista", this.idArtista.toString());
+    this.router.navigate(["/editarDisco", discoInterfaz.id]);
+
+  }
+
+  eliminar(discoInterfaz: DiscoInterfaz) {
+
+    this.creadorDiscoService.obtenerPorCreadorYDisco(this.idArtista, discoInterfaz.id).subscribe(creacion => {
+
+      this.creadorDiscoService.eliminar(creacion.id).subscribe(data => {
+
+        this.discoService.eliminar(discoInterfaz.id).subscribe(
+          data => {
+            this.actualizar();
+          }
+        );
+
+      });
+
+    })
+
+  }
+
 }
 
-class ArtistaInterfaz{
+class ArtistaInterfaz {
 
   nombre: string;
   genero: string;
@@ -110,7 +148,7 @@ class ArtistaInterfaz{
 
 }
 
-class DiscoInterfaz{
+class DiscoInterfaz {
 
   id: number;
   nombre: string;

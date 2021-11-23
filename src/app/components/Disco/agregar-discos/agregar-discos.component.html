@@ -26,7 +26,8 @@
             <input formControlName="portada" type="file" (change)="onFileSelected($event)">
           </div>
           <div class="u-align-center u-form-group u-form-submit">
-            <a (click)="agregar()" class="u-btn u-btn-submit u-button-style">Añadir</a>
+            <a *ngIf="!isEditando" (click)="agregar()" class="u-btn u-btn-submit u-button-style">Añadir</a>
+            <a *ngIf="isEditando" (click)="editar()" class="u-btn u-btn-submit u-button-style">Editar</a>
             <input type="submit" value="submit" class="u-form-control-hidden">
           </div>
           <input type="hidden" value="" name="recaptchaResponse">

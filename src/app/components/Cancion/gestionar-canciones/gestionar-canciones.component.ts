@@ -30,7 +30,9 @@ export class GestionarCancionesComponent implements OnInit {
         this.discoInterfaz.fechaDeLanzamiento = new Date(disco.fechaDeLanzamiento).toLocaleString().split(",")[0];
         this.discoInterfaz.nombre = disco.nombre;
         this.discoInterfaz.precio = disco.precio;
-        this.discoInterfaz.portada = disco.portada;
+        if(disco.portada != undefined){
+          this.discoInterfaz.portada = disco.portada;
+        }
 
         if (this.discoInterfaz.portada == null || this.discoInterfaz.portada == "") {
 

@@ -252,9 +252,7 @@ export class AgregarArtistasComponent implements OnInit {
               });
 
             }
-
-            console.log(artista);
-
+            
             this.artistaService.editar(artista).subscribe(data => {
 
               this.snackBar.open("Artista editado con éxito", "cerrar", { duration: 3000 });
