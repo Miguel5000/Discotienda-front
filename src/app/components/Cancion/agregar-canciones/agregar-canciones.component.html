@@ -1,16 +1,17 @@
 <section class="u-clearfix u-section-1" id="sec-b509">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h1 class="u-align-center u-text u-title u-text-1">Añadir canción</h1>
+      <h1 *ngIf="!isEditando" class="u-align-center u-text u-title u-text-1">Añadir canción</h1>
+      <h1 *ngIf="isEditando" class="u-align-center u-text u-title u-text-1">Editar canción</h1>
       <div class="u-form u-form-1">
-        <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+        <form [formGroup]="agregarCancionForm" action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
           <div class="u-form-group u-form-name">
             <label for="name-bc20" class="u-label">Nombre</label>
-            <input type="text" placeholder="Introduzca el nombre de la canción" id="name-bc20" name="nombre" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" maxlength="100">
+            <input formControlName="nombre" type="text" placeholder="Introduzca el nombre de la canción" id="name-bc20" name="nombre" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" maxlength="100">
           </div>
           <div class="u-form-group u-form-partition-factor-2 u-form-select u-form-group-2">
             <label for="select-4d5c" class="u-label">Minutos</label>
             <div class="u-form-select-wrapper">
-              <select id="select-4d5c" name="minutos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+              <select formControlName="minutos" id="select-4d5c" name="minutos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
                 <option value="00">00</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -34,7 +35,7 @@
           <div class="u-form-group u-form-partition-factor-2 u-form-select u-form-group-3">
             <label for="select-6d57" class="u-label">Segundos</label>
             <div class="u-form-select-wrapper">
-              <select id="select-6d57" name="segundos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+              <select formControlName="segundos" id="select-6d57" name="segundos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
                 <option value="00">00</option>
                 <option value="01">01</option>
                 <option value="02">02</option>
@@ -102,28 +103,32 @@
           <div class="u-form-group u-form-select u-form-group-4">
             <label for="select-039b" class="u-label">Formato</label>
             <div class="u-form-select-wrapper">
-              <select id="select-039b" name="formato" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
-                <option value=".mp3">.mp3</option>
-                <option value=".wav">.wav</option>
-                <option value=".ogg">.ogg</option>
+              <select formControlName="formato" id="select-039b" name="formato" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                <option [ngValue]="null" disabled selected>Seleccione un formato</option> 
+                <option *ngFor="let formato of formatos" value="{{formato.id}}">{{formato.nombre}}</option>
               </select>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
             </div>
           </div>
           <div class="u-form-group u-form-group-5">
             <label for="text-84c7" class="u-label">Precio</label>
-            <input type="text" placeholder="Introduzca el precio de la canción" id="text-84c7" name="precio" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+            <input type="number" formControlName="precio" placeholder="Introduzca el precio de la canción" id="text-84c7" name="precio" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
           </div>
           <div class="u-form-group u-form-textarea u-form-group-6">
             <label for="textarea-9066" class="u-label">Descripción</label>
-            <textarea rows="4" cols="50" id="textarea-9066" name="descripcion" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" placeholder="Introduzca la descripción de la canción"></textarea>
+            <textarea formControlName="descripcion" rows="4" cols="50" id="textarea-9066" name="descripcion" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" placeholder="Introduzca la descripción de la canción"></textarea>
+          </div>
+          <div class="u-align-center u-form-group u-form-group-6">
+            <img id="imagenCargada" width="300px" src="assets/imagenes/CanciónNula.png">
+          </div>
+          <div class="u-align-center u-form-group u-form-group-6">
+            <input formControlName="portada" type="file" (change)="onFileSelected($event)">
           </div>
           <div class="u-align-center u-form-group u-form-submit">
-            <a href="#" class="u-btn u-btn-submit u-button-style">Añadir</a>
+            <a *ngIf="!isEditando" (click)="agregar()" class="u-btn u-btn-submit u-button-style">Añadir</a>
+            <a *ngIf="isEditando" (click)="editar()" class="u-btn u-btn-submit u-button-style">Editar</a>
             <input type="submit" value="submit" class="u-form-control-hidden">
           </div>
-          <div class="u-form-send-message u-form-send-success"> Gracias! Tu mensaje ha sido enviado. </div>
-          <div class="u-form-send-error u-form-send-message"> No se puede enviar su mensaje. Por favor, corrija los errores y vuelva a intentarlo. </div>
           <input type="hidden" value="" name="recaptchaResponse">
         </form>
       </div>

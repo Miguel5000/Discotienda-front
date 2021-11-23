@@ -42,7 +42,6 @@ export class AgregarDiscosComponent implements OnInit {
         this.discoService.obtenerPorId(this.idDisco).subscribe(disco => {
 
           this.agregarDiscoForm.controls.nombre.setValue(disco.nombre);
-          console.log(disco.fechaDeLanzamiento);
           this.agregarDiscoForm.controls.fechaLanzamiento.setValue(disco.fechaDeLanzamiento);
           this.agregarDiscoForm.controls.precio.setValue(disco.precio);
           this.agregarDiscoForm.controls.descripcion.setValue(disco.descripcion);

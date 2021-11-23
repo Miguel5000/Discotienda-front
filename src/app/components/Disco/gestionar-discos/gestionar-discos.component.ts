@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArtistaService } from 'src/app/_service/artista.service';
 import { CreadorDiscoService } from 'src/app/_service/creador-disco.service';
@@ -20,7 +21,8 @@ export class GestionarDiscosComponent implements OnInit {
     private artistaService: ArtistaService,
     private discoService: DiscoService,
     private creadorDiscoService: CreadorDiscoService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -45,7 +47,9 @@ export class GestionarDiscosComponent implements OnInit {
       this.artistaInterfaz.nombre = artista.nombres + " " + artista.apellidos;
       this.artistaInterfaz.genero = artista.genero.nombre;
       this.artistaInterfaz.pais = artista.pais.nombre;
-      this.artistaInterfaz.fecha = new Date(artista.fechaDeNacimiento).toLocaleString().split(",")[0];
+      let fechaConvertida:Date = new Date(artista.fechaDeNacimiento);
+      fechaConvertida.setDate(fechaConvertida.getDate()+1);
+      this.artistaInterfaz.fecha = new Date(fechaConvertida).toLocaleString().split(",")[0];
 
       if (artista.foto != undefined) {
         this.artistaInterfaz.foto = artista.foto;
@@ -127,6 +131,7 @@ export class GestionarDiscosComponent implements OnInit {
         this.discoService.eliminar(discoInterfaz.id).subscribe(
           data => {
             this.actualizar();
+            this.snackBar.open("Disco eliminado con éxito", "cerrar", { duration: 3000 });
           }
         );
 

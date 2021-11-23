@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ArtistaService } from 'src/app/_service/artista.service';
 import { GeneroService } from 'src/app/_service/genero.service';
@@ -17,7 +18,8 @@ export class GestionarArtistasComponent implements OnInit {
   constructor(private artistaService: ArtistaService,
     private generoService: GeneroService,
     private paisService: PaisService,
-    private router: Router) { }
+    private router: Router,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -57,6 +59,7 @@ export class GestionarArtistasComponent implements OnInit {
     this.artistaService.eliminar(artistaInterfaz.id).subscribe(
       data => {
         this.actualizar();
+        this.snackBar.open("Artista eliminado con éxito", "cerrar", { duration: 3000 });
       }
     );
 

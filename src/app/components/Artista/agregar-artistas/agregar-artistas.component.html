@@ -1,6 +1,7 @@
 <section class="u-clearfix u-section-1" id="sec-b509">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h1 class="u-align-center u-text u-title u-text-1">Añadir artista</h1>
+      <h1 *ngIf="!isEditando" class="u-align-center u-text u-title u-text-1">Añadir artista</h1>
+      <h1 *ngIf="isEditando" class="u-align-center u-text u-title u-text-1">Editar artista</h1>
       <div class="u-form u-form-1">
         <form [formGroup]="agregarArtistaForm" action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
           <div class="u-form-group u-form-name u-form-partition-factor-2">

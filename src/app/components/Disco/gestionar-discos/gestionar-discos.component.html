@@ -66,7 +66,7 @@
 
           <div *ngFor="let discoInterfaz of discosInterfazFiltrados" class="u-container-style u-grey-10 u-products-item u-repeater-item u-repeater-item-1">
             <div class="u-container-layout u-similar-container u-container-layout-1"><!--product_image-->
-              <img (click)="gestionarCanciones(discoInterfaz.id)" alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{{discoInterfaz.portada}}"><!--/product_image-->
+              <img onerror="this.src='assets/imagenes/DiscoNulo.png'" (click)="gestionarCanciones(discoInterfaz.id)" alt="" class="u-expanded-width u-image u-image-default u-product-control u-image-1" src="{{discoInterfaz.portada}}"><!--/product_image-->
               <p class="u-align-center u-small-text u-text u-text-variant u-text-1">{{discoInterfaz.nombre}}</p>
               <p class="u-align-center u-small-text u-text u-text-variant u-text-2">${{discoInterfaz.precio}}</p>
               <p class="u-align-center u-small-text u-text u-text-variant u-text-3">{{discoInterfaz.fecha}}</p>

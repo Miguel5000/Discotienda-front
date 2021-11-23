@@ -56,6 +56,8 @@ export class AppComponent implements DoCheck{
   cerrarSesion() {
 
     sessionStorage.removeItem("usuario");
+    sessionStorage.removeItem("idArtista");
+    sessionStorage.removeItem("idDisco");
     this.router.navigate(["/"])
 
   }
