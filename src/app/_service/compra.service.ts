@@ -55,4 +55,10 @@ export class CompraService {
 
   }
 
+  obtenerCompraCarrito(id: number){
+
+    return this.http.get<CompraDto>(this.URL + "/obtenerCompraCarrito/" + id);
+
+  }
+
 }

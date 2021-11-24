@@ -1,15 +1,15 @@
 export class VentasArtista{
 
-    private id: number;
-    private idGenero: number;
-    private idPais: number;
-    private nombres: string;
-    private apellidos: string;
-    private nombreArtistico: string;
-    private fechaDeNacimiento: string;
-    private foto: string;
-    private ventasDiscos: number;
-    private ventasCanciones: number;
-    private ventasTotales: number;
+    id: number;
+    idGenero: number;
+    idPais: number;
+    nombres: string;
+    apellidos: string;
+    nombreArtistico: string;
+    fechaDeNacimiento: string;
+    foto: string;
+    ventasDiscos: number;
+    ventasCanciones: number;
+    ventasTotales: number;
 
 }

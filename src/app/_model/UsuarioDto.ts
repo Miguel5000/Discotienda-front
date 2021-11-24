@@ -12,6 +12,6 @@ export class UsuarioDto{
     tokenCambioCorreo: string;
     nuevoCorreo: string;
     compras: CompraDto[];
-    rol: RolDto[];
+    rol: RolDto;
 
 }

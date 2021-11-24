@@ -1,5 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import { UsuarioDto } from './_model/UsuarioDto';
 
 var jquery: NodeRequire = require("../assets/jquery.js");
 
@@ -13,6 +14,7 @@ export class AppComponent implements DoCheck{
   title = 'discotienda-front';
   activacionDesglose: boolean;
   sesionIniciada: boolean;
+  rol: string;
 
   constructor(private router: Router){
 
@@ -30,6 +32,7 @@ export class AppComponent implements DoCheck{
       this.sesionIniciada = false;
     } else {
       this.sesionIniciada = true;
+      this.rol = (JSON.parse(jsonUsuario) as UsuarioDto).rol.nombre;
     }
 
   }
@@ -53,12 +56,26 @@ export class AppComponent implements DoCheck{
     }
   }
 
+  irAInicio(){
+
+    if(sessionStorage.getItem("usuario") != null){
+
+      this.router.navigate(["/gestionarArtistas"]);   
+
+    }else{
+
+      this.router.navigate(["/"]);   
+
+    }
+
+  }
+
   cerrarSesion() {
 
     sessionStorage.removeItem("usuario");
     sessionStorage.removeItem("idArtista");
     sessionStorage.removeItem("idDisco");
-    this.router.navigate(["/"])
+    this.router.navigate(["/"]);
 
   }
 

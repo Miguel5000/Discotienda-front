@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { UsuarioDto } from 'src/app/_model/UsuarioDto';
 import { ArtistaService } from 'src/app/_service/artista.service';
 import { GeneroService } from 'src/app/_service/genero.service';
 import { PaisService } from 'src/app/_service/pais.service';
@@ -14,6 +15,7 @@ export class GestionarArtistasComponent implements OnInit {
 
   artistasInterfaz: ArtistaInterfaz[] = [];
   artistasInterfazFiltrados: ArtistaInterfaz[] = [];
+  rol: string;
 
   constructor(private artistaService: ArtistaService,
     private generoService: GeneroService,
@@ -22,6 +24,15 @@ export class GestionarArtistasComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+
+    let usuarioSession = sessionStorage.getItem("usuario");
+
+    if(usuarioSession != null){
+
+      let usuario: UsuarioDto = JSON.parse(usuarioSession);
+      this.rol = usuario.rol.nombre;
+
+    }
 
     this.actualizar();
 

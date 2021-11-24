@@ -30,13 +30,15 @@
   <div (window:resize)="onResize($event)" *ngIf="sesionIniciada == true && activacionDesglose == true"
     class="w3-sidebar w3-bar-block" style="width:40%; background-color: black; color: white; z-index: 1000;">
     <h3 style="margin-left: 3%;">Opciones</h3>
+    <a *ngIf="rol != 'Administrador'" href="/carrito" class="w3-bar-item w3-button">Carrito</a>
+    <a *ngIf="rol == 'Administrador'"  href="/historialArtistas" class="w3-bar-item w3-button">Historial</a>
     <a href="/modificarDatos" class="w3-bar-item w3-button">Modificar datos</a>
     <a (click)="cerrarSesion()" class="w3-bar-item w3-button">Cerrar sesión</a>
   </div>
 
   <header *ngIf="sesionIniciada == false"  class="u-clearfix u-gradient u-header u-header" id="sec-ae46">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="/" data-page-id="257757241" class="u-image u-logo u-image-1" data-image-width="256"
+      <a (click)="irAInicio()" data-page-id="257757241" class="u-image u-logo u-image-1" data-image-width="256"
         data-image-height="256" title="Página de inicio">
         <img src="assets/images/Icono.webp" class="u-logo-image u-logo-image-1">
       </a>
@@ -77,7 +79,7 @@
 
   <header *ngIf="sesionIniciada == true"  class="u-clearfix u-gradient u-header u-header" id="sec-ae46">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <a href="/" data-page-id="257757241" class="u-image u-logo u-image-1" data-image-width="256"
+      <a (click)="irAInicio()" data-page-id="257757241" class="u-image u-logo u-image-1" data-image-width="256"
         data-image-height="256" title="Página de inicio">
         <img src="assets/images/Icono.webp" class="u-logo-image u-logo-image-1">
       </a>
@@ -101,9 +103,17 @@
         </div>
         <div class="u-custom-menu u-nav-container">
           <ul class="u-nav u-unstyled u-nav-1">
+            <li *ngIf="rol != 'Administrador'" class="u-nav-item"><a
+              class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+              href="/carrito" style="padding: 10px 20px;">Carrito</a>
+          </li>
+          <li *ngIf="rol == 'Administrador'" class="u-nav-item"><a
+            class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+            href="/historialArtistas" style="padding: 10px 20px;">Historial</a>
+        </li>
             <li class="u-nav-item"><a
                 class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-                href="/registro" style="padding: 10px 20px;">Modificar datos</a>
+                href="/modificarDatos" style="padding: 10px 20px;">Modificar datos</a>
             </li>
             <li class="u-nav-item"><a (click)="cerrarSesion()"
                 class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"

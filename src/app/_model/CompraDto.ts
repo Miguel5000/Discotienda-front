@@ -10,6 +10,6 @@ export class CompraDto{
     realizacion: boolean;
     comprasCanciones: CompraCancionDto[];
     comprasDiscos: CompraDiscoDto[];
-    usuario: UsuarioDto[];
+    usuario: UsuarioDto;
 
 }

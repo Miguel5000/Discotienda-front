@@ -1,10 +1,11 @@
 export class VentasDisco{
 
-    private id: number;
-    private nombre: string;
-    private fechaDeLanzamiento: string;
-    private precio: number;
-    private descripcion: string;
-    private ventas: number;
+    id: number;
+    nombre: string;
+    fechaDeLanzamiento: string;
+    precio: number;
+    descripcion: string;
+    ventas: number;
+    portada: string;
 
 }
