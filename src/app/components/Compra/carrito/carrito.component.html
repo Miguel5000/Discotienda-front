@@ -1,6 +1,7 @@
 <section class="u-clearfix u-section-1" id="sec-019b">
   <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-    <h1 class="u-align-center u-text u-title u-text-1">Carrito de compras</h1>
+    <h1 *ngIf="isCarrito" class="u-align-center u-text u-title u-text-1">Carrito de compras</h1>
+    <h1 *ngIf="!isCarrito"  class="u-align-center u-text u-title u-text-1">Compra</h1>
   </div>
 </section>
 <section class="u-clearfix u-section-2" id="sec-6ad5">
@@ -23,21 +24,7 @@
                   <h4 class="u-align-center u-text u-text-1">{{disco.nombre}}</h4>
                   <p class="u-align-center u-text u-text-2">
                     <span style="font-size: 1.875rem;">Precio: ${{disco.precio}}</span>
-                  </p><span (click)="retirarDisco(disco)" class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link"
-                      preserveAspectRatio="xMidYMin slice" viewBox="0 0 50 50" style="">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-c8e8"></use>
-                    </svg><svg class="u-svg-content" viewBox="0 0 50 50" x="0px" y="0px" id="svg-c8e8"
-                      style="enable-background:new 0 0 50 50;">
-                      <circle style="fill:#D75A4A;" cx="25" cy="25" r="25"></circle>
-                      <polyline
-                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;"
-                        points="16,34 25,25 34,16 
-  "></polyline>
-                      <polyline
-                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;"
-                        points="16,16 25,25 34,34 
-  "></polyline>
-                    </svg></span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -61,22 +48,7 @@
                   <h4 class="u-align-center u-text u-text-1">{{cancion.nombre}}</h4>
                   <p class="u-align-center u-text u-text-2">
                     <span style="font-size: 1.875rem;"> Precio: ${{cancion.precio}}</span>
-                  </p><span (click)="retirarCancion(cancion)"
-                    class="u-icon u-icon-circle u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice"
-                      viewBox="0 0 50 50" style="">
-                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-3594"></use>
-                    </svg><svg class="u-svg-content" viewBox="0 0 50 50" x="0px" y="0px" id="svg-3594"
-                      style="enable-background:new 0 0 50 50;">
-                      <circle style="fill:#D75A4A;" cx="25" cy="25" r="25"></circle>
-                      <polyline
-                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;"
-                        points="16,34 25,25 34,16 
-	"></polyline>
-                      <polyline
-                        style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;"
-                        points="16,16 25,25 34,34 
-	"></polyline>
-                    </svg></span>
+                  </p>
                 </div>
               </div>
             </div>
@@ -92,7 +64,7 @@
     <h1 class="u-align-center u-text u-text-1">Total: ${{this.total}}</h1>
   </div>
 </section>
-<section class="u-clearfix u-section-7" id="sec-1510">
+<section *ngIf="isCarrito" class="u-clearfix u-section-7" id="sec-1510">
   <div class="u-clearfix u-sheet u-sheet-1">
     <a (click)="comprar()"
       class="u-align-center u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-6 u-btn-1">Comprar</a>

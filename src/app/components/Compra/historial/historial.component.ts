@@ -7,6 +7,7 @@ import { ArtistaService } from 'src/app/_service/artista.service';
 import { CompraCancionService } from 'src/app/_service/compra-cancion.service';
 import { CompraDiscoService } from 'src/app/_service/compra-disco.service';
 import { DiscoService } from 'src/app/_service/disco.service';
+import { MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-historial',
@@ -19,6 +20,10 @@ export class HistorialComponent implements OnInit {
   ventasDiscos: VentasDisco[] = [];
   ventasCanciones: VentasCancion[] = [];
 
+  ventasArtistasFiltradas: VentasArtista[] = [];
+  ventasDiscosFiltradas: VentasDisco[] = [];
+  ventasCancionesFiltradas: VentasCancion[] = [];
+
   constructor(private router: Router,
     private artistaService: ArtistaService,
     private compraDiscoService: CompraDiscoService,
@@ -26,44 +31,79 @@ export class HistorialComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(this.router.url.includes("Artista")){
+    this.cargarArtistas();
+    this.cargarDiscos();
+    this.cargarCanciones();
 
-      this.artistaService.obtenerVentas().subscribe(ventas => {
+  }
 
-        this.ventasArtistas = ventas;
+  cargarArtistas(){
 
-        this.ventasArtistas.forEach(venta => {
-          venta.foto = (venta.foto != null) ? venta.foto : "assets/imagenes/ArtistaNulo.png";
-        });
-        
-      })      
+    this.artistaService.obtenerVentas().subscribe(ventas => {
 
-    }else if(this.router.url.includes("Disco")){
+      this.ventasArtistas = ventas;
+      this.ventasArtistasFiltradas = ventas;
 
-      this.compraDiscoService.obtenerVentas().subscribe(ventas => {
+      this.ventasArtistas.forEach(venta => {
+        venta.foto = (venta.foto != null) ? venta.foto : "assets/imagenes/ArtistaNulo.png";
+      });
 
-        this.ventasDiscos = ventas;
+      this.ventasArtistasFiltradas.forEach(venta => {
+        venta.foto = (venta.foto != null) ? venta.foto : "assets/imagenes/ArtistaNulo.png";
+      });
+      
+    })  
 
-        this.ventasDiscos.forEach(venta => {
-          venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/DiscoNulo.png";
-        });
-        
-      })     
+  }
 
-    }else{
+  cargarDiscos(){
 
-      this.compraCancionService.obtenerVentas().subscribe(ventas => {
+    this.compraDiscoService.obtenerVentas().subscribe(ventas => {
 
-        this.ventasCanciones = ventas;
+      this.ventasDiscos = ventas;
+      this.ventasDiscosFiltradas = ventas;
 
-        this.ventasCanciones.forEach(venta => {
-          venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/CanciónNula.png";
-        });
-        
-      })     
+      this.ventasDiscos.forEach(venta => {
+        venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/DiscoNulo.png";
+      });
 
-    }
+      this.ventasDiscosFiltradas.forEach(venta => {
+        venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/DiscoNulo.png";
+      });
+      
+    })   
 
+  }
+
+  cargarCanciones(){
+
+    this.compraCancionService.obtenerVentas().subscribe(ventas => {
+
+      this.ventasCanciones = ventas;
+      this.ventasCancionesFiltradas = ventas;
+
+      this.ventasCanciones.forEach(venta => {
+        venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/CanciónNula.png";
+      });
+
+      this.ventasCancionesFiltradas.forEach(venta => {
+        venta.portada = (venta.portada != null) ? venta.portada : "assets/imagenes/CanciónNula.png";
+      });
+      
+    })    
+
+  }
+
+
+  filtrar(event: Event){
+
+    let elemento:HTMLInputElement = event.target as HTMLInputElement;
+    let valor = elemento.value.toLowerCase();
+
+    this.ventasArtistasFiltradas = this.ventasArtistas.filter(venta => venta.nombres.toLowerCase().includes(valor));
+    this.ventasDiscosFiltradas = this.ventasDiscos.filter(venta => venta.nombre.toLowerCase().includes(valor));
+    this.ventasCancionesFiltradas = this.ventasCanciones.filter(venta => venta.nombre.toLowerCase().includes(valor));
+    
   }
 
 }

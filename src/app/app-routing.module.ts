@@ -5,6 +5,7 @@ import { GestionarArtistasComponent } from './components/Artista/gestionar-artis
 import { AgregarCancionesComponent } from './components/Cancion/agregar-canciones/agregar-canciones.component';
 import { GestionarCancionesComponent } from './components/Cancion/gestionar-canciones/gestionar-canciones.component';
 import { CarritoComponent } from './components/Compra/carrito/carrito.component';
+import { HistorialUsuarioComponent } from './components/Compra/historial-usuario/historial-usuario.component';
 import { HistorialComponent } from './components/Compra/historial/historial.component';
 import { PagoComponent } from './components/Compra/pago/pago.component';
 import { AgregarDiscosComponent } from './components/Disco/agregar-discos/agregar-discos.component';
@@ -37,9 +38,9 @@ const routes: Routes = [
   {path: 'editarDisco/:id', component: AgregarDiscosComponent},
   {path: 'gestionarDiscos/:id', component: GestionarDiscosComponent},
   {path: 'carrito', component: CarritoComponent},
-  {path: 'historialArtistas', component: HistorialComponent},
-  {path: 'historialCanciones', component: HistorialComponent},
-  {path: 'historialDiscos', component: HistorialComponent},
+  {path: 'compra/:id', component: CarritoComponent},
+  {path: 'historial', component: HistorialComponent},
+  {path: 'historialCompras', component: HistorialUsuarioComponent},
   {path: 'pagos', component: PagoComponent},
 
 ];

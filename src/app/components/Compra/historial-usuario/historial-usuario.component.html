@@ -1,0 +1,51 @@
+<section class="u-clearfix u-section-1" id="sec-8395">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <h3 class="u-align-center u-text u-text-1">Historial de compras</h3>
+      <div class="u-form u-form-1">
+        <form action="#" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px" source="custom">
+          <div class="u-form-group">
+            <input (input)="filtrar($event)" type="text" id="name-558c" name="none" class="u-border-1 u-border-grey-30 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" placeholder="Buscar">
+          </div>
+          <div class="u-form-group u-form-submit">
+            <a href="#" class="u-border-1 u-border-active-palette-2-base u-border-hover-palette-1-base u-btn u-btn-submit u-button-style u-none u-text-palette-1-base u-btn-1">
+              <br>
+            </a>
+            <input type="submit" value="submit" class="u-form-control-hidden">
+          </div>
+          <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>
+          <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>
+          <input type="hidden" value="" name="recaptchaResponse">
+        </form>
+      </div>
+    </div>
+  </section>
+  <section class="u-align-center u-clearfix u-section-2" id="sec-14ce">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-expanded-width u-table u-table-responsive u-table-1">
+        <table class="u-table-entity u-table-entity-1">
+          <colgroup>
+            <col width="33.3%">
+            <col width="33.3%">
+            <col width="33.400000000000006%">
+          </colgroup>
+          <thead class="u-grey-50 u-table-header u-table-header-1">
+            <tr style="height: 21px;">
+              <th class="u-align-center u-border-1 u-border-grey-50 u-table-cell">Fecha</th>
+              <th class="u-align-center u-border-1 u-border-grey-50 u-table-cell">Valor</th>
+              <th class="u-align-center u-border-1 u-border-grey-50 u-table-cell">Opciones</th>
+            </tr>
+          </thead>
+          <tbody class="u-table-body">
+            <tr *ngFor="let compra of comprasFiltradas" style="height: 75px;">
+              <td class="u-align-center u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{compra.fechaCompra}}</td>
+              <td class="u-align-center u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">${{compra.valorCompra}}</td>
+              <td class="u-align-center u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">
+                <span (click)="ver(compra)" class="u-icon u-icon-4"><img width="37px" src="assets/imagenes/Ver.png"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>

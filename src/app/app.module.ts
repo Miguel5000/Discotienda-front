@@ -24,6 +24,7 @@ import { ValidacionComponent } from './components/Utilitarios/validacion/validac
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
+import { HistorialUsuarioComponent } from './components/Compra/historial-usuario/historial-usuario.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     PagoComponent,
     HistorialComponent,
     CarritoComponent,
-    ValidacionComponent
+    ValidacionComponent,
+    HistorialUsuarioComponent
   ],
   imports: [
     BrowserModule,

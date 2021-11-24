@@ -31,7 +31,8 @@
     class="w3-sidebar w3-bar-block" style="width:40%; background-color: black; color: white; z-index: 1000;">
     <h3 style="margin-left: 3%;">Opciones</h3>
     <a *ngIf="rol != 'Administrador'" href="/carrito" class="w3-bar-item w3-button">Carrito</a>
-    <a *ngIf="rol == 'Administrador'"  href="/historialArtistas" class="w3-bar-item w3-button">Historial</a>
+    <a *ngIf="rol == 'Administrador'"  href="/historial" class="w3-bar-item w3-button">Historial</a>
+    <a *ngIf="rol != 'Administrador'"  href="/historialCompras" class="w3-bar-item w3-button">Compras</a>
     <a href="/modificarDatos" class="w3-bar-item w3-button">Modificar datos</a>
     <a (click)="cerrarSesion()" class="w3-bar-item w3-button">Cerrar sesión</a>
   </div>
@@ -109,8 +110,12 @@
           </li>
           <li *ngIf="rol == 'Administrador'" class="u-nav-item"><a
             class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
-            href="/historialArtistas" style="padding: 10px 20px;">Historial</a>
+            href="/historial" style="padding: 10px 20px;">Historial</a>
         </li>
+        <li *ngIf="rol != 'Administrador'" class="u-nav-item"><a
+          class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
+          href="/historialCompras" style="padding: 10px 20px;">Compras</a>
+      </li>
             <li class="u-nav-item"><a
                 class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"
                 href="/modificarDatos" style="padding: 10px 20px;">Modificar datos</a>

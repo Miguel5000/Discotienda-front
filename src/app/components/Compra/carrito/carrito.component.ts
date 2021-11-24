@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTab } from '@angular/material/tabs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CancionDto } from 'src/app/_model/CancionDto';
 import { DiscoDto } from 'src/app/_model/DiscoDto';
 import { UsuarioDto } from 'src/app/_model/UsuarioDto';
@@ -20,16 +20,59 @@ export class CarritoComponent implements OnInit {
   canciones: CancionDto[] = [];
   total: number = 0;
   usuario: UsuarioDto = new UsuarioDto();
+  isCarrito: boolean = true;
+  idCompra: number;
 
   constructor(private compraService: CompraService,
     private compraDiscoService: CompraDiscoService,
     private compraCancionService: CompraCancionService,
     private snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.actualizar();
+    if (this.router.url.includes("compra")) {
+
+      this.route.params.subscribe(params => {
+
+        this.idCompra = params['id'];
+
+        this.isCarrito = false;
+        this.actualizarCompra();
+
+      });
+
+    } else {
+
+      this.actualizar();
+
+    }
+
+  }
+
+  actualizarCompra() {
+
+    this.discos = [];
+    this.canciones = [];
+    this.total = 0;
+
+    this.compraService.obtenerCarritoPorCompra(this.idCompra).subscribe(carrito => {
+
+      this.discos = carrito.discos;
+      this.canciones = carrito.canciones;
+
+      this.discos.forEach(disco => {
+        this.total = this.total + disco.precio;
+        disco.portada = (disco.portada != null) ? disco.portada : "assets/imagenes/DiscoNulo.png";
+      });
+
+      this.canciones.forEach(cancion => {
+        this.total = this.total + cancion.precio;
+        cancion.portada = (cancion.portada != null) ? cancion.portada : "assets/imagenes/CanciónNula.png";
+      });
+
+    })
 
   }
 
@@ -139,7 +182,7 @@ export class CarritoComponent implements OnInit {
 
             this.snackBar.open("Compra realizada con éxito", "cerrar", { duration: 3000 });
             this.router.navigate(["/gestionarArtistas"]);
-    
+
           }
           );
 

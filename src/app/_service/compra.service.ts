@@ -61,4 +61,16 @@ export class CompraService {
 
   }
 
+  obtenerCarritoPorCompra(id: number){
+
+    return this.http.get<Carrito>(this.URL + "/obtenerCarritoPorCompra/" + id);
+
+  }
+
+  obtenerComprasDeUsuario(id: number){
+
+    return this.http.get<CompraDto[]>(this.URL + "/obtenerComprasDeUsuario/" + id);
+
+  }
+
 }
