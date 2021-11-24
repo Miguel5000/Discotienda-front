@@ -171,7 +171,7 @@ export class CarritoComponent implements OnInit {
     this.compraService.obtenerCompraCarrito(this.usuario.id).subscribe(compra => {
 
       let fechaActual = new Date();
-      compra.fechaCompra = fechaActual.getFullYear() + "-" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getDate() + "T" + fechaActual.getHours() + ":" + fechaActual.getMinutes() + ":00.000";
+      compra.fechaCompra = fechaActual.getFullYear() + "-" + (fechaActual.getMonth() + 1) + "-" + fechaActual.getDate() + "T" + ((fechaActual.getHours().toString().length < 2) ? ("0" + fechaActual.getHours()):fechaActual.getHours())  + ":" + ((fechaActual.getMinutes().toString().length < 2) ? ("0" + fechaActual.getMinutes()):fechaActual.getMinutes()) + ":00.000";
       compra.valorCompra = this.total;
 
       this.compraService.editar(compra).subscribe(data => {

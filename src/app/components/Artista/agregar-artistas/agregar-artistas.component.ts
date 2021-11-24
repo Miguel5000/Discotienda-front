@@ -47,31 +47,35 @@ export class AgregarArtistasComponent implements OnInit {
 
     })
 
-    this.route.params.subscribe(params => {
+    if (this.router.url.includes("editarArtista")) {
 
-      this.idArtista = params['id'];
-      this.isEditando = true;
+      this.route.params.subscribe(params => {
 
-      this.artistaService.obtenerPorId(this.idArtista).subscribe(artista => {
+        this.idArtista = params['id'];
+        this.isEditando = true;
 
-        this.agregarArtistaForm.controls.nombre.setValue(artista.nombres);
-        this.agregarArtistaForm.controls.apellido.setValue(artista.apellidos);
-        this.agregarArtistaForm.controls.nombreArtistico.setValue(artista.nombreArtistico);
-        this.agregarArtistaForm.controls.fechaNacimiento.setValue(artista.fechaDeNacimiento);
-        this.agregarArtistaForm.controls.genero.setValue(artista.genero.id);
-        this.agregarArtistaForm.controls.pais.setValue(artista.pais.id);
+        this.artistaService.obtenerPorId(this.idArtista).subscribe(artista => {
 
-        let elemento = document.getElementById("imagenCargada") as HTMLImageElement;
+          this.agregarArtistaForm.controls.nombre.setValue(artista.nombres);
+          this.agregarArtistaForm.controls.apellido.setValue(artista.apellidos);
+          this.agregarArtistaForm.controls.nombreArtistico.setValue(artista.nombreArtistico);
+          this.agregarArtistaForm.controls.fechaNacimiento.setValue(artista.fechaDeNacimiento);
+          this.agregarArtistaForm.controls.genero.setValue(artista.genero.id);
+          this.agregarArtistaForm.controls.pais.setValue(artista.pais.id);
 
-        if (artista.foto != undefined) {
-          elemento.src = artista.foto;
-        } else {
-          elemento.src = "assets/imagenes/ArtistaNulo.png";
-        }
+          let elemento = document.getElementById("imagenCargada") as HTMLImageElement;
 
-      })
+          if (artista.foto != undefined) {
+            elemento.src = artista.foto;
+          } else {
+            elemento.src = "assets/imagenes/ArtistaNulo.png";
+          }
 
-    });
+        })
+
+      });
+
+    }
 
   }
 
@@ -252,7 +256,7 @@ export class AgregarArtistasComponent implements OnInit {
               });
 
             }
-            
+
             this.artistaService.editar(artista).subscribe(data => {
 
               this.snackBar.open("Artista editado con éxito", "cerrar", { duration: 3000 });
